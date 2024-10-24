@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Jugar.unity
     guid: d53828e98d8b19c4f81e39f411982541
+  - enabled: 1
+    path: Assets/Scenes/Controles.unity
+    guid: 2dd3281fa32f90a44b0d71c45ec481b6
   m_configObjects: {}
