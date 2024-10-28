@@ -2,13 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
-public class PrimeraPantalla : MonoBehaviour
+public class Historia : MonoBehaviour
 {
 
-    public void AnarAJugar()
+
+    public void AnarAHistoria()
     {
-        SceneManager.LoadScene("PantallaJoc");
+        SceneManager.LoadScene("Historia");
     }
 
     void Start()

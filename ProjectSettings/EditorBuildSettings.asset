@@ -8,10 +8,16 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Principal.unity
     guid: 2cda990e2423bbf4892e6590ba056729
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Jugar.unity
     guid: d53828e98d8b19c4f81e39f411982541
   - enabled: 1
     path: Assets/Scenes/Controles.unity
     guid: 2dd3281fa32f90a44b0d71c45ec481b6
+  - enabled: 1
+    path: Assets/Scenes/Historia.unity
+    guid: 37c67b6055fa4294bbe3c730fcc13e6c
+  - enabled: 1
+    path: Assets/Scenes/PantallaJoc.unity
+    guid: 570e1bb7a3486cd41b6be66cb728e32e
   m_configObjects: {}
