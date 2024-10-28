@@ -6,12 +6,12 @@ public class CubeSpawner : MonoBehaviour
 {
 
     private float _vel;
-    
-    
-    
-    
-    
-    
+
+
+
+
+
+
     // Prefab del cubo que vamos a generar
     public GameObject cubePrefab;
 
