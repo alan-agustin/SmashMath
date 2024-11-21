@@ -4,14 +4,6 @@ using UnityEngine;
 
 public class CubeSpawner : MonoBehaviour
 {
-
-    private float _vel;
-
-
-
-
-
-
     // Prefab del cubo que vamos a generar
     public GameObject cubePrefab;
 
@@ -27,7 +19,21 @@ public class CubeSpawner : MonoBehaviour
     // Control del tiempo para el próximo spawn
     private float nextSpawnTime = 0f;
 
-    // Update se llama una vez por frame
+    // Límites en X calculados
+    private float minX, maxX;
+
+    // Velocidad de caída de los cubos
+    public float fallSpeed = 2f;
+
+    void Start()
+    {
+        // Calcular los límites de la pantalla
+        Camera cam = Camera.main;
+        float screenHalfWidthInWorldUnits = cam.aspect * cam.orthographicSize;
+        minX = -screenHalfWidthInWorldUnits;
+        maxX = screenHalfWidthInWorldUnits;
+    }
+
     void Update()
     {
         // Si ha pasado suficiente tiempo, genera un nuevo cubo
@@ -35,12 +41,14 @@ public class CubeSpawner : MonoBehaviour
         {
             nextSpawnTime = Time.time + spawnRate;
 
-            // Generar una posición aleatoria en el eje X
-            float randomX = Random.Range(-xRange, xRange);
+            // Generar una posición aleatoria en el eje X dentro de los límites de la pantalla
+            float randomX = Mathf.Clamp(Random.Range(-xRange, xRange), minX, maxX);
             Vector2 spawnPosition = new Vector2(randomX, spawnHeight);
 
             // Instanciar el cubo
-            Instantiate(cubePrefab, spawnPosition, Quaternion.identity);
+            GameObject newCube = Instantiate(cubePrefab, spawnPosition, Quaternion.identity);
+            // Asignar la velocidad de caída
+            newCube.GetComponent<Rigidbody2D>().velocity = new Vector2(0, -fallSpeed);
         }
     }
 }

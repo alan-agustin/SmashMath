@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 968113119783360606}
   - component: {fileID: 19197834763407483}
   - component: {fileID: 5724352094480162238}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: CubPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -112,7 +112,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!61 &5724352094480162238
 BoxCollider2D:
   m_ObjectHideFlags: 0
