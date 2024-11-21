@@ -4,14 +4,6 @@ using UnityEngine;
 
 public class CubeSpawner : MonoBehaviour
 {
-
-    private float _vel;
-
-
-
-
-
-
     // Prefab del cubo que vamos a generar
     public GameObject cubePrefab;
 
@@ -40,7 +32,18 @@ public class CubeSpawner : MonoBehaviour
             Vector2 spawnPosition = new Vector2(randomX, spawnHeight);
 
             // Instanciar el cubo
-            Instantiate(cubePrefab, spawnPosition, Quaternion.identity);
+            GameObject newCube = Instantiate(cubePrefab, spawnPosition, Quaternion.identity);
+
+            // Asegurar que el cubo tenga un Rigidbody2D para que se acumule al tocar el suelo
+            Rigidbody2D rb = newCube.GetComponent<Rigidbody2D>();
+            if (rb == null)
+            {
+                rb = newCube.AddComponent<Rigidbody2D>();
+            }
+
+            // Ajustar propiedades del Rigidbody2D para evitar que los cubos reboten demasiado
+            rb.gravityScale = 1f; // Asegúrate de que el cubo caiga
+            rb.constraints = RigidbodyConstraints2D.FreezeRotation; // Evita que roten al colisionar
         }
     }
 }
