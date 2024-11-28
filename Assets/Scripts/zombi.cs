@@ -63,4 +63,15 @@ public class zombi : MonoBehaviour
             Gizmos.DrawWireSphere(groundCheck.position, groundCheckRadius);
         }
     }
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        Debug.Log("OnCollisionEnter2D triggered in Player with: " + collision.gameObject.name);
+        if (collision.gameObject.CompareTag("Cube"))
+        {
+            // Aquí cridarem el mètode per generar i mostrar una operació
+            Debug.Log("Col·lisió amb un cub detectada en el PlayerController.");
+            FindObjectOfType<MathOperationManager>().GenerateAndShowOperation();
+        }
+    }
 }

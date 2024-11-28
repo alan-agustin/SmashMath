@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/PantallaJoc.unity
     guid: 570e1bb7a3486cd41b6be66cb728e32e
+  - enabled: 1
+    path: Assets/Scenes/GameOver.unity
+    guid: c92d9847dbc532740bd692056f4bdc44
   m_configObjects: {}
