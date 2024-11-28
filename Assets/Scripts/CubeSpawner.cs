@@ -11,7 +11,7 @@ public class CubeSpawner : MonoBehaviour
     public float xRange = 8f;
 
     // Tiempo entre la aparición de cubos
-    public float spawnRate = 2f;
+    public float spawnRate = 0.5f;
 
     // Altura desde la cual los cubos aparecerán
     public float spawnHeight = 5f;
@@ -42,7 +42,7 @@ public class CubeSpawner : MonoBehaviour
             nextSpawnTime = Time.time + spawnRate;
 
             // Generar una posición aleatoria en el eje X dentro de los límites de la pantalla
-            float randomX = Mathf.Clamp(Random.Range(-xRange, xRange), minX, maxX);
+            float randomX = Random.Range(minX, maxX);
             Vector2 spawnPosition = new Vector2(randomX, spawnHeight);
 
             // Instanciar el cubo
