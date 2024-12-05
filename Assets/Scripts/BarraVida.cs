@@ -1,24 +1,30 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
 
 public class BarraVida : MonoBehaviour
 {
     public Image rellenoBarraVida;
-    private MovimientoPersonaje playerController;
+    private zombi playerController;
     private float vidaMaxima;
-    // Start is called before the first frame update
+
     void Start()
     {
-        playerController = GameObject.Find("personaje").GetComponent<MovimientoPersonaje>();
-        vidaMaxima = playerController.vida;
+        playerController = GameObject.Find("personaje").GetComponent<zombi>();
+        if (playerController != null)
+        {
+            vidaMaxima = playerController.vida;
+        }
+        else
+        {
+            Debug.LogError("No se encontró el componente 'zombi' en el objeto 'personaje'. Asegúrate de que el nombre del objeto y el script sean correctos.");
+        }
     }
 
-    // Update is called once per frame
     void Update()
     {
-        rellenoBarraVida.fillAmount = playerController.vida / vidaMaxima;
+        if (playerController != null)
+        {
+            rellenoBarraVida.fillAmount = (float)playerController.vida / vidaMaxima;
+        }
     }
 }
