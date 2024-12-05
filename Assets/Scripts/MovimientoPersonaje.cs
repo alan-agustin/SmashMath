@@ -24,13 +24,13 @@ public class MovimientoPersonaje : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        ProcesarMovimiento();
-        if (Input.GetKeyDown(KeyCode.Space))
+       ProcesarMovimiento();
+        /*if (Input.GetKeyDown(KeyCode.Space))
         {
             // Reduce la variable
             vida--;
 
-        }
+        }*/
 
         void ProcesarMovimiento()
         {

@@ -7,27 +7,27 @@ public class CubeSpawner : MonoBehaviour
     // Prefab del cubo que vamos a generar
     public GameObject cubePrefab;
 
-    // Rango de aparici�n en el eje X
-    public float xRange = 8f;
+    // Rango de aparición en el eje X
+    public float xRange = 7.5f;
 
-    // Tiempo entre la aparici�n de cubos
+    // Tiempo entre la aparición de cubos
     public float spawnRate = 0.5f;
 
-    // Altura desde la cual los cubos aparecer�n
+    // Altura desde la cual los cubos aparecerán
     public float spawnHeight = 5f;
 
-    // Control del tiempo para el pr�ximo spawn
+    // Control del tiempo para el próximo spawn
     private float nextSpawnTime = 0f;
 
-    // L�mites en X calculados
+    // Límites en X calculados
     private float minX, maxX;
 
-    // Velocidad de ca�da de los cubos
+    // Velocidad de caída de los cubos
     public float fallSpeed = 2f;
 
     void Start()
     {
-        // Calcular los l�mites de la pantalla
+        // Calcular los límites de la pantalla
         Camera cam = Camera.main;
         float screenHalfWidthInWorldUnits = cam.aspect * cam.orthographicSize;
         minX = -screenHalfWidthInWorldUnits;
@@ -41,13 +41,13 @@ public class CubeSpawner : MonoBehaviour
         {
             nextSpawnTime = Time.time + spawnRate;
 
-            // Generar una posici�n aleatoria en el eje X dentro de los l�mites de la pantalla
+            // Generar una posición aleatoria en el eje X dentro de los límites de la pantalla
             float randomX = Random.Range(minX, maxX);
             Vector2 spawnPosition = new Vector2(randomX, spawnHeight);
 
             // Instanciar el cubo
             GameObject newCube = Instantiate(cubePrefab, spawnPosition, Quaternion.identity);
-            // Asignar la velocidad de ca�da
+            // Asignar la velocidad de caída
             newCube.GetComponent<Rigidbody2D>().velocity = new Vector2(0, -fallSpeed);
 
             // Asegurar que el cubo tenga un Rigidbody2D para que se acumule al tocar el suelo
@@ -58,8 +58,11 @@ public class CubeSpawner : MonoBehaviour
             }
 
             // Ajustar propiedades del Rigidbody2D para evitar que los cubos reboten demasiado
-            rb.gravityScale = 1f; // Aseg�rate de que el cubo caiga
+            rb.gravityScale = 1f; // Asegúrate de que el cubo caiga
             rb.constraints = RigidbodyConstraints2D.FreezeRotation; // Evita que roten al colisionar
+
+            // Añadir un script para gestionar el temporizador del cubo
+            CubeTimer cubeTimer = newCube.AddComponent<CubeTimer>();
         }
     }
 }
