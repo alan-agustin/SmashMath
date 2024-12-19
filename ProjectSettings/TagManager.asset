@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Ground
   - Cube
+  - CubeAddLife
+  - CubeRestarVida
   layers:
   - Default
   - TransparentFX

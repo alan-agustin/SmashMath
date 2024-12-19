@@ -59,15 +59,16 @@ public class MathOperationManager : MonoBehaviour
     {
         Debug.Log("OnCollisionEnter2D triggered with: " + collision.gameObject.name);
         // Comprovar si la col·lisió és amb un cub
-        if (collision.gameObject.CompareTag("Cube"))
+        if (collision.gameObject.CompareTag("CubeRestarVida") || collision.gameObject.CompareTag("CubeAddLife"))
         {
             Debug.Log("Col·lisió amb un cub detectada.");
             currentCube = collision.gameObject;  // Guardar referència al cub que ha col·lisionat
-            GenerateAndShowOperation();
+            bool isSubtractingLife = collision.gameObject.CompareTag("CubeRestarVida");
+            GenerateAndShowOperation(isSubtractingLife);
         }
     }
 
-    public void GenerateAndShowOperation()
+    public void GenerateAndShowOperation(bool isSubtractingLife)
     {
         // Aturar el temps del joc
         Time.timeScale = 0;
@@ -142,7 +143,7 @@ public class MathOperationManager : MonoBehaviour
         {
             StopCoroutine(answerTimerCoroutine);
         }
-        answerTimerCoroutine = StartCoroutine(AnswerTimer());
+        answerTimerCoroutine = StartCoroutine(AnswerTimer(isSubtractingLife));
     }
 
     public void CheckAnswer()
@@ -153,19 +154,25 @@ public class MathOperationManager : MonoBehaviour
             if (playerAnswer == correctAnswer)
             {
                 Debug.Log("Resposta correcta!");
+                if (currentCube.CompareTag("CubeAddLife"))
+                {
+                    jugador.AumentarVida(1);  // Sumar vida si es el cubo que suma vida
+                }
                 score += pointsForCurrentOperation;  // Incrementar la puntuació segons el tipus d'operació
             }
             else
             {
                 Debug.Log("Resposta incorrecta! Torna a intentar-ho.");
-                // Reducir la vida del jugador en lugar de cambiar a la escena de Game Over
-                jugador.ReducirVida(1);
+                if (currentCube.CompareTag("CubeRestarVida"))
+                {
+                    jugador.ReducirVida(1);  // Restar vida si es el cubo que resta vida
+                }
             }
 
             // Destruir el cub después de verificar la respuesta
             Destroy(currentCube);
 
-            // Guardar la puntuación cuando se termine
+            // Guardar la puntuació quan es terminen les operacions
             PlayerPrefs.SetInt("FinalScore", score);
 
             // Reiniciar el camp d'entrada i amagar-lo
@@ -196,8 +203,7 @@ public class MathOperationManager : MonoBehaviour
         }
     }
 
-
-    private IEnumerator AnswerTimer()
+    private IEnumerator AnswerTimer(bool isSubtractingLife)
     {
         timeRemaining = 5f;
         while (timeRemaining > 0)
@@ -207,7 +213,10 @@ public class MathOperationManager : MonoBehaviour
         }
 
         Debug.Log("Temps esgotat! Restant una vida.");
-        jugador.ReducirVida(1);
+        if (isSubtractingLife)
+        {
+            jugador.ReducirVida(1);  // Restar vida si es el cubo que resta vida
+        }
 
         // Destruir el cub
         Destroy(currentCube);

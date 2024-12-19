@@ -29,6 +29,9 @@ public class zombi : MonoBehaviour
     public int vida = 5;
     public Slider barraDeVida; // Asignar en el inspector
 
+    // Referencia al script MathOperationManager
+    private MathOperationManager mathOperationManager;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -49,6 +52,9 @@ public class zombi : MonoBehaviour
             barraDeVida.maxValue = vida;
             barraDeVida.value = vida;
         }
+
+        // Obtener la referencia del script MathOperationManager
+        mathOperationManager = FindObjectOfType<MathOperationManager>();
     }
 
     void Update()
@@ -113,17 +119,6 @@ public class zombi : MonoBehaviour
         }
     }
 
-    void OnCollisionEnter2D(Collision2D collision)
-    {
-        Debug.Log("OnCollisionEnter2D triggered in Player with: " + collision.gameObject.name);
-        if (collision.gameObject.CompareTag("Cube"))
-        {
-            // Aquí cridarem el mètode per generar i mostrar una operació
-            Debug.Log("Col·lisió amb un cub detectada en el PlayerController.");
-            FindObjectOfType<MathOperationManager>().GenerateAndShowOperation();
-        }
-    }
-
     // Método para reducir la vida
     public void ReducirVida(int cantidad)
     {
@@ -136,6 +131,31 @@ public class zombi : MonoBehaviour
         if (vida <= 0)
         {
             SceneManager.LoadScene("GameOver"); // Asegúrate de que esta escena exista
+        }
+    }
+
+    // Método para aumentar la vida
+    public void AumentarVida(int cantidad)
+    {
+        vida += cantidad;
+        if (vida > 100) // Limitar la vida máxima si es necesario
+        {
+            vida = 100;
+        }
+        Debug.Log("Vida aumentada: " + vida);
+    }
+
+    // Método para manejar las colisiones con los cubos
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        Debug.Log("OnCollisionEnter2D triggered with: " + collision.gameObject.name);
+        if (collision.gameObject.CompareTag("CubeRestarVida") || collision.gameObject.CompareTag("CubeAddLife"))
+        {
+            Debug.Log("Colisión con cubo detectada.");
+            bool isSubtractingLife = collision.gameObject.CompareTag("CubeRestarVida");
+
+            // Llamar al método de MathOperationManager para generar la operación
+            mathOperationManager.GenerateAndShowOperation(isSubtractingLife);
         }
     }
 }
