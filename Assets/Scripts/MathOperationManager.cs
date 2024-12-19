@@ -51,7 +51,7 @@ public class MathOperationManager : MonoBehaviour
         // Actualitzar el temporitzador
         if (timerText.gameObject.activeSelf)
         {
-            timerText.text = "Temps restant: " + Mathf.Ceil(timeRemaining).ToString();
+            timerText.text = "TEMPS RESTANT: " + Mathf.Ceil(timeRemaining).ToString();
         }
     }
 

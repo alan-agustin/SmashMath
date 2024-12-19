@@ -7,7 +7,7 @@ public class zombi : MonoBehaviour
     // Variables de movimiento y salto
     private float moveSpeed = 8f;
     private float jumpForce = 8f;
-
+        
     // Componentes
     private Rigidbody2D rb;
     private Animator animator;
